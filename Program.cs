@@ -1,8 +1,18 @@
+using CouponApp.Service;
+using CouponSystem.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext<AppDBContext>(
+    options => { options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")); });
+
+builder.Services.AddScoped<UserService>();
+
 
 
 var app = builder.Build();
